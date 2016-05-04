@@ -15,14 +15,18 @@
 
 class Employee
 
-  attr_reader :salary
+  attr_reader :salary, :active
   attr_accessor :first_name
 
-  def initialize(input_first_name, input_last_name, input_salary, input_active)
-    @first_name = input_first_name
-    @last_name = input_last_name
-    @salary = input_salary
-    @active = input_active
+  def initialize(input_options)
+    @first_name = input_options[:first_name]
+    @last_name = input_options[:last_name]
+    @salary = input_options[:salary]
+    if input_options[:active]
+      @active = input_options[:active]
+    else
+      @active = true
+    end
   end
 
   def print_info
@@ -32,17 +36,16 @@ class Employee
   def give_annual_raise
     @salary *= 1.05
   end
-
-  # def first_name=(input_first_name)
-  #   @first_name = input_first_name
-  # end
 end
 
 
 # driver code
-employee1 = Employee.new("John", "Smith", 70000, true)
-employee2 = Employee.new("Jane", "Doe", 80000, true)
-p employee1.first_name
-employee1.first_name = "Bill"
-p employee1.first_name
+employee1 = Employee.new(
+  last_name: "Smith", 
+  first_name: "John", 
+  salary: 70000, 
+  )
+
+# employee2 = Employee.new({first_name: "Jane", last_name: "Doe", salary: 80000, active: true})
+p employee1.active
 
