@@ -1,5 +1,5 @@
 
-class Employee
+class Employee < Person
 
   attr_reader :salary, :active
   attr_accessor :first_name, :last_name
