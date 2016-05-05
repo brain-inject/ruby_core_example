@@ -3,20 +3,20 @@ require './manager.rb'
 require './intern.rb'
 require './reports.rb'
 
-employee1 = Employee.new(
+employee1 = ACLTC::Employee.new(
   first_name: "Majora", 
   last_name: "Carter", 
   salary: 80000, 
   active: true
   )
-employee2 = Employee.new(
+employee2 = ACLTC::Employee.new(
   first_name: "Danilo", 
   last_name: "Campos", 
   salary: 70000, 
   active: true
   )
 
-manager = Manager.new(
+manager = ACLTC::Manager.new(
   first_name: "Saron", 
   last_name: "Yitbarek", 
   salary: 100000, 
@@ -24,7 +24,7 @@ manager = Manager.new(
   employees: [employee1, employee2]
   )
 
-intern = Intern.new(
+intern = ACLTC::Intern.new(
   first_name: "Stan", 
   last_name: "Jones", 
   salary: 20000, 
