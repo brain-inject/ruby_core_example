@@ -1,64 +1,95 @@
+module Reports
+  def send_report
+    puts "Sending email..."
+    # use email sending library...
+    puts "Email sent!"
+  end
+end
 
-class Employee < Person
-
-  attr_reader :salary, :active
-  attr_accessor :first_name, :last_name
+class Employee
+  attr_reader :first_name, :last_name, :salary
+  attr_accessor :active
 
   def initialize(input_options)
     @first_name = input_options[:first_name]
     @last_name = input_options[:last_name]
     @salary = input_options[:salary]
-    if input_options[:active]
-      @active = input_options[:active]
-    else
-      @active = true
-    end
+    @active = input_options[:active]
   end
 
   def print_info
-    puts "#{@first_name} #{@last_name} makes #{@salary} a year."
+    puts "#{first_name} #{last_name} makes #{salary} a year."
   end
 
   def give_annual_raise
-    @salary *= 1.05
+    @salary = 1.05 * @salary
   end
 end
 
 class Manager < Employee
-  attr_accessor :employees
+  include Reports
 
   def initialize(input_options)
     super(input_options)
     @employees = input_options[:employees]
   end
+
+  def give_all_raises
+    @employees.each do |employee|
+      if employee.active
+        employee.give_annual_raise
+      end
+    end
+  end
+
+  def fire_all_employees
+    @employees.each do |employee|
+      employee.active = false
+    end
+  end
 end
 
+class Intern < Employee
+  include Reports
+end
 
-# driver code
-employee1 = Employee.new(
-  last_name: "Smith", 
-  first_name: "John", 
-  salary: 70000, 
-  )
-
-employee2 = Employee.new(
-  first_name: "Jane", 
-  last_name: "Doe", 
+employee1 = Employee.new(first_name: "Majora", 
+  last_name: "Carter", 
   salary: 80000, 
   active: true
   )
+employee2 = Employee.new(first_name: "Danilo", last_name: "Campos", salary: 70000, active: true)
+employee1.print_info
+employee2.print_info
 
-employee3 = Manager.new(
-  first_name: "Rupert",
-  last_name: "Stanley",
-  salary: 100000,
-  employees: [employee1,employee2]
-  )
+manager = Manager.new(first_name: "Saron", last_name: "Yitbarek", salary: 100000, active: true, employees: [employee1, employee2])
+manager.print_info
 
-p employee3.last_name
-p employee3.employees[1].last_name
+intern = Intern.new(first_name: "Stan", last_name: "Jones", salary: 20000, active: true)
+p intern.class
 
-# p employee1.first_name
+# driver code
+# employee1 = Employee.new(
+#   last_name: "Smith", 
+#   first_name: "John", 
+#   salary: 70000, 
+#   )
+
+# employee2 = Employee.new(
+#   first_name: "Jane", 
+#   last_name: "Doe", 
+#   salary: 80000, 
+#   active: true
+#   )
+
+# employee3 = Manager.new(
+#   first_name: "Rupert",
+#   last_name: "Stanley",
+#   salary: 100000,
+#   employees: [employee1,employee2]
+#   )
+
+
 
 
 
